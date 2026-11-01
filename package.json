@@ -1,0 +1,55 @@
+{
+  "name": "doggy-avatar-generator",
+  "version": "1.0.0",
+  "description": "Deterministic SVG dog avatars for JavaScript and TypeScript, with 120 breeds and size-aware composition.",
+  "type": "module",
+  "license": "Apache-2.0",
+  "main": "./src/index.mjs",
+  "types": "./src/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./src/index.d.ts",
+      "import": "./src/index.mjs",
+      "default": "./src/index.mjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src/*.mjs",
+    "src/index.d.ts",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "NOTICE",
+    "docs/*.md",
+    "LICENSES/*.txt"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "avatar",
+    "dog",
+    "svg",
+    "deterministic",
+    "seeded",
+    "offline"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "test": "node --test test/*.test.mjs && tsc --noEmit -p tsconfig.json",
+    "release": "npm run build && npm pack --ignore-scripts --pack-destination release && node scripts/prepare-release.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CartemisAI/doggy-avatar-generator.git"
+  },
+  "homepage": "https://github.com/CartemisAI/doggy-avatar-generator#readme",
+  "bugs": {
+    "url": "https://github.com/CartemisAI/doggy-avatar-generator/issues"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  }
+}

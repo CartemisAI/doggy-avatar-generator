@@ -1,0 +1,22 @@
+Doggy Avatar Generator
+https://github.com/CartemisAI/doggy-avatar-generator
+
+This project is adapted from the following projects:
+
+Animatar
+https://github.com/luizvbo/animatar
+Copyright (c) 2025 Luiz Otavio Vilas Boas Oliveira
+Original MIT notices: LICENSES/Animatar-MIT.txt
+
+Animal Avatar Generator
+https://github.com/roma-lukashik/animal-avatar-generator
+Copyright (c) 2021 Roman Lukashik
+Original MIT notice: LICENSES/Animal-Avatar-Generator-MIT.txt
+
+Modifications include dog-breed recipes, configurable expressions and clothing,
+deterministic collection sampling, size-aware composition, and a standalone
+JavaScript/TypeScript API.
+
+The repository's Apache-2.0 license is provided in LICENSE. The upstream MIT
+license texts and copyright notices are preserved separately under LICENSES/
+and accompany source and installation distributions.
