@@ -1,6 +1,6 @@
-// Regenerates the showcase images used by README.md.
+// Regenerates the banner image used by README.md.
 //   node scripts/readme-assets.mjs
-// Output: docs/assets/*.svg (not included in the npm package).
+// Output: docs/assets/hero.svg (not included in the npm package).
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -72,98 +72,5 @@ const breedName = (id) => SHORT_NAMES[id] ?? BREED_CATALOG.find((b) => b.id === 
     body += place(seed, { ...options, size: 256, framing: 'full' }, x, cy - box / 2 - 2, box);
     body += label(x + box / 2, 232, breedName(options.breed), { size: 13, weight: 600, fill: MUTED });
   });
-  write('hero.svg', doc(W, H, body, 'A parade of generated dog avatars'));
-}
-
-// ── Breed gallery ────────────────────────────────────────────────────────────
-{
-  const breeds = [
-    'labrador', 'german-shepherd', 'husky', 'border-collie', 'beagle', 'poodle',
-    'chow-chow', 'dachshund', 'bernese', 'akita', 'schnauzer', 'afghan',
-    'shar-pei', 'bull-terrier', 'pomeranian', 'basset', 'komondor', 'xolo',
-  ];
-  const cols = 6;
-  const cell = 160;
-  const box = 120;
-  const rows = Math.ceil(breeds.length / cols);
-  const W = cols * cell;
-  const H = rows * (cell + 16);
-  let body = `<rect width="${W}" height="${H}" rx="24" fill="#FBFAF7"/>`;
-  breeds.forEach((breed, i) => {
-    const cx = (i % cols) * cell;
-    const cy = Math.floor(i / cols) * (cell + 16);
-    body += `<rect x="${cx + 12}" y="${cy + 12}" width="${cell - 24}" height="${cell - 8}" rx="18" fill="${PASTELS[(i + Math.floor(i / cols)) % PASTELS.length]}"/>`;
-    body += place(`gallery-${breed}`, { breed, size: 256, framing: 'bust' }, cx + (cell - box) / 2, cy + 14, box);
-    body += label(cx + cell / 2, cy + cell - 6, breedName(breed), { size: 12 });
-  });
-  write('breeds.svg', doc(W, H, body, '18 of the 120 built-in breeds'));
-}
-
-// ── Size-aware composition ───────────────────────────────────────────────────
-{
-  const dog = { breed: 'shiba', outfit: 'varsity', headwear: 'cap', garmentColor: 'forest', headwearColor: 'honey', expression: 'smile' };
-  const frames = [
-    { size: 24, caption: 'size: 24', sub: '→ bust' },
-    { size: 32, caption: 'size: 32', sub: '→ bust' },
-    { size: 64, caption: 'size: 64', sub: '→ full' },
-    { size: 256, caption: 'size: 256', sub: '→ full' },
-    { size: 256, framing: 'head', caption: "framing: 'head'", sub: 'no styling layers' },
-  ];
-  const cell = 190;
-  const box = 140;
-  const W = frames.length * cell;
-  const H = 250;
-  let body = `<rect width="${W}" height="${H}" rx="24" fill="#FBFAF7"/>`;
-  frames.forEach((f, i) => {
-    const x = i * cell;
-    body += `<rect x="${x + 14}" y="16" width="${cell - 28}" height="${box + 20}" rx="18" fill="${PASTELS[i]}"/>`;
-    // Rendered with the real size so the composition rule applies, then shown enlarged.
-    body += place('size-demo', { ...dog, size: f.size, framing: f.framing ?? 'auto' }, x + (cell - box) / 2, 26, box);
-    body += label(x + cell / 2, 204, f.caption, { size: 14, family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" });
-    body += label(x + cell / 2, 226, f.sub, { size: 13, weight: 500, fill: MUTED });
-  });
-  write('sizes.svg', doc(W, H, body, 'Same dog, size-aware composition'));
-}
-
-// ── Expressions ──────────────────────────────────────────────────────────────
-{
-  const expressions = ['neutral', 'smile', 'tongue', 'wink', 'joy', 'curious', 'sleepy', 'surprised', 'grumpy', 'blep'];
-  const cell = 100;
-  const box = 88;
-  const W = expressions.length * cell;
-  const H = 132;
-  let body = `<rect width="${W}" height="${H}" rx="22" fill="#FBFAF7"/>`;
-  expressions.forEach((expression, i) => {
-    const x = i * cell;
-    body += `<circle cx="${x + cell / 2}" cy="54" r="42" fill="${PASTELS[i % PASTELS.length]}"/>`;
-    body += place('expr-demo', { breed: 'shiba', framing: 'head', size: 256, expression }, x + (cell - box) / 2, 12, box);
-    body += label(x + cell / 2, 116, expression, { size: 12, weight: 500, fill: MUTED, family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" });
-  });
-  write('expressions.svg', doc(W, H, body, '10 of the 20 expressions'));
-}
-
-// ── Wardrobe ─────────────────────────────────────────────────────────────────
-{
-  const looks = [
-    { outfit: 'hoodie', headwear: 'beanie', accessory: 'round-glasses', garmentColor: 'coral', headwearColor: 'honey' },
-    { outfit: 'kimono', headwear: 'flower', accessory: 'none', garmentColor: 'sapphire', fabric: 'waves' },
-    { outfit: 'knight', headwear: 'knight-helmet', accessory: 'none', garmentColor: 'silver', headwearColor: 'silver' },
-    { outfit: 'bee-suit', headwear: 'bee-antennae', accessory: 'none', garmentColor: 'lemon' },
-    { outfit: 'detective', headwear: 'detective-hat', accessory: 'monocle', garmentColor: 'mocha', headwearColor: 'cocoa' },
-    { outfit: 'astronaut', headwear: 'none', accessory: 'none', garmentColor: 'snow' },
-    { outfit: 'wizard', headwear: 'witch-hat', accessory: 'none', garmentColor: 'midnight', headwearColor: 'amethyst', fabric: 'stars' },
-    { outfit: 'strawberry', headwear: 'strawberry-leaf', accessory: 'heart-glasses', garmentColor: 'ruby' },
-  ];
-  const cell = 125;
-  const box = 112;
-  const W = looks.length * cell;
-  const H = 158;
-  let body = `<rect width="${W}" height="${H}" rx="22" fill="#FBFAF7"/>`;
-  looks.forEach((look, i) => {
-    const x = i * cell;
-    body += `<rect x="${x + 8}" y="10" width="${cell - 16}" height="${box + 4}" rx="16" fill="${PASTELS[i % PASTELS.length]}"/>`;
-    body += place('wardrobe-demo', { breed: 'corgi', size: 256, framing: 'full', expression: 'smile', fabric: 'plain', ...look }, x + (cell - box) / 2, 10, box);
-    body += label(x + cell / 2, 146, look.outfit, { size: 12, weight: 500, fill: MUTED, family: "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" });
-  });
-  write('wardrobe.svg', doc(W, H, body, 'One corgi, eight looks'));
+  write('hero.svg', doc(W, H, body, 'Generated dog avatars'));
 }
