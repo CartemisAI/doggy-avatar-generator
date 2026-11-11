@@ -51,3 +51,7 @@ Pass the size the avatar is displayed at, since it selects the framing.
 ## License
 
 [Apache-2.0](LICENSE). Adapted from [Animatar](https://github.com/luizvbo/animatar) and [Animal Avatar Generator](https://github.com/roma-lukashik/animal-avatar-generator) (MIT). See [NOTICE](NOTICE).
+
+---
+
+<p align="center">Built by <a href="https://cartemis-ai.com/">Cartemis AI</a></p>
